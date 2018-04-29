@@ -1,8 +1,18 @@
+<style>
+body {
+ padding: 0;
+ margin: 0;
+}
+#gc {
+ margin: 0;
+ padding: 0;
+}
+</style>
 <canvas id="gc"></canvas>
 <script>
 var CE = document.getElementById('gc');
 var canvas = CE.getContext('2d');
-CE.width = 400;
-CE.height = 400;
-canvas.fillRect(0,0,400,400);
+CE.width = window.innerWidth;
+CE.height = window.innerHeight;
+canvas.fillRect(0,0,CE.width,CE.height);
 </script>
