@@ -14,5 +14,53 @@ var CE = document.getElementById('gc');
 var canvas = CE.getContext('2d');
 CE.width = window.innerWidth;
 CE.height = window.innerHeight;
-canvas.fillRect(0,0,CE.width,CE.height);
+
+var entities = [];
+
+function thingy(x, y) {
+ return {
+  x: x,
+  y: y,
+  life: 100,
+  update: function () {
+   this.y -= 1;
+   this.life -= 1;
+   if (this.life <= 0) {
+    this.shouldDelete = false;
+   }
+  },
+  draw: function () {
+   drawCircle(this.x, this.y);
+  },
+ }
+}
+
+function drawCircle(x,y,r) {
+ canvas.beginPath();
+ canvas.arc(x,y,r,0,Math.PI*2);
+ canvas.fill();
+}
+
+function step() {
+ for (var i = 0;i <= entities.length;i += 1) {
+  var e = entities[i];
+  e.update();
+  if (e.shouldDelete) {
+   entities.splice(i--, 1);
+  } else {
+   e.draw();
+  }
+ }
+ window.requestAnimationFrame(step);
+}
+
+step();
+
+window.addEventListener('touchmoved', function(e) {
+ var touch = e.changedTouches[0];
+ var x = touch.pageX;
+ var y = touch.pageY;
+ entities.push(thingy(x, y));
+});
+
 </script>
