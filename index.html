@@ -21,6 +21,8 @@ function thingy(x, y) {
  return {
   x: x,
   y: y,
+  r: r || 10,
+  color: 'red',
   life: 100,
   update: function () {
    this.y -= 1;
@@ -30,7 +32,8 @@ function thingy(x, y) {
    }
   },
   draw: function () {
-   drawCircle(this.x, this.y);
+   canvas.fillStyle = this.color;
+   drawCircle(this.x, this.y, this.r);
   },
  }
 }
@@ -42,6 +45,8 @@ function drawCircle(x,y,r) {
 }
 
 function step() {
+ canvas.fillStyle = "grey";
+ canvas.fillRect(0,0,CE.width, CE.height);
  for (var i = 0;i <= entities.length;i += 1) {
   var e = entities[i];
   e.update();
